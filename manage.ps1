@@ -4,6 +4,12 @@ param (
     [string]$Command
 )
 
+# ==========================================
+Write-Host @"
+[ PASTE YOUR ASCII ART HERE ]
+"@ -ForegroundColor Cyan
+# ==========================================
+
 $DataDir = "$env:USERPROFILE\.snippet-vault"
 $BinDir = "$DataDir\bin"
 

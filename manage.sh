@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 
+# ==========================================
+cat << "EOF"
+[ PASTE YOUR ASCII ART HERE ]
+EOF
+# ==========================================
+
 COMMAND=$1
 INSTALL_DIR="$HOME/.local/bin"
 DATA_DIR="$HOME/.snippet-vault"
