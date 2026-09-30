@@ -1,4 +1,20 @@
-<h1 align="center">Snippet Vault</h1>
+<div align="center">
+
+```text
+                     /$$                                 /$$                                        /$$   /$$    
+                    |__/                                | $$                                       | $$  | $$    
+  /$$$$$$$ /$$$$$$$  /$$  /$$$$$$   /$$$$$$   /$$$$$$  /$$$$$$        /$$    /$$ /$$$$$$  /$$   /$$| $$ /$$$$$$  
+ /$$_____/| $$__  $$| $$ /$$__  $$ /$$__  $$ /$$__  $$|_  $$_//$$$$$$|  $$  /$$/|____  $$| $$  | $$| $$|_  $$_/  
+|  $$$$$$ | $$  \ $$| $$| $$  \ $$| $$  \ $$| $$$$$$$$  | $$ |______/ \  $$/$$/  /$$$$$$$| $$  | $$| $$  | $$    
+ \____  $$| $$  | $$| $$| $$  | $$| $$  | $$| $$_____/  | $$ /$$       \  $$$/  /$$__  $$| $$  | $$| $$  | $$ /$$
+ /$$$$$$$/| $$  | $$| $$| $$$$$$$/| $$$$$$$/|  $$$$$$$  |  $$$$/        \  $/  |  $$$$$$$|  $$$$$$/| $$  |  $$$$/
+|_______/ |__/  |__/|__/| $$____/ | $$____/  \_______/   \___/           \_/    \_______/ \______/ |__/   \___/  
+                        | $$      | $$                                                                           
+                        | $$      | $$                                                                           
+                        |__/      |__/                                                                           
+```
+
+</div>
 
 <p align="center">
   <img src="assets/snippet-vault.png" alt="Snippet Vault UI" width="700" />
@@ -21,7 +37,7 @@
 
 **Snippet Vault** is a blazingly fast snippet manager written in Go. It runs entirely in your terminal, using a beautiful `bubbletea` powered UI. 
 
-Behind the scenes, it operates as a fully standalone application. It spins up a background HTTP server and persists your snippets seamlessly into a local, pure-Go SQLite database (`~/.snippet-vault/vault.db`).
+Behind the scenes, it operates as a fully standalone application. It spins up a background HTTP server and persists your snippets seamlessly into a local, pure-Go SQLite database (`~/.snippet-vault/snippet-vault.db`).
 
 ## ✨ Features
 
@@ -33,8 +49,18 @@ Behind the scenes, it operates as a fully standalone application. It spins up a 
 
 ## 📦 Installation
 
-### Option 1: Download from Releases
-Head over to the [Releases Page](https://github.com/iammohdzaki/snippet-vault-go/releases) and download the compiled binary for your operating system (Windows, macOS, Linux).
+### Option 1: Quick Install (Recommended)
+Download and install the latest compiled binaries directly from GitHub Releases.
+
+#### Windows (PowerShell)
+```powershell
+irm https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/install.ps1 | iex
+```
+
+#### Unix (Linux / macOS)
+```bash
+curl -sSL https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/install.sh | bash
+```
 
 ### Option 2: Build from Source
 Ensure you have Go 1.23+ installed.
@@ -43,21 +69,37 @@ Ensure you have Go 1.23+ installed.
 ```bash
 git clone https://github.com/iammohdzaki/snippet-vault-go.git
 cd snippet-vault-go
-./manage.sh install
+./scripts/manage.sh install
 ```
 
 #### Windows (PowerShell)
 ```powershell
 git clone https://github.com/iammohdzaki/snippet-vault-go.git
 cd snippet-vault-go
-.\manage.ps1 -Command install
+.\scripts\manage.ps1 -Command install
+```
+
+### Updating
+To update Snippet Vault to the latest version, simply run the quick-install command for your OS again! It will cleanly overwrite your old binaries while leaving your database perfectly intact.
+
+### Uninstalling
+If you need to remove Snippet Vault, you can use the uninstall scripts. They will safely remove the binaries and ask you if you want to keep or delete your snippet database.
+
+#### Windows
+```powershell
+irm https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/uninstall.ps1 | iex
+```
+
+#### Unix
+```bash
+curl -sSL https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/uninstall.sh | bash
 ```
 
 ## 🎮 Usage
 
 Simply run:
 ```bash
-vault
+snippet-vault
 ```
 *(Ensure `~/.snippet-vault/bin` or `~/.local/bin` is in your system `PATH`!)*
 
@@ -85,7 +127,7 @@ Snippet Vault is composed of two main pieces, completely decoupled but shipped i
 
 To run *just* the headless server (e.g., if you want to connect a custom web frontend to your snippet database):
 ```bash
-vault-server
+snippet-vault-server
 ```
 
 ## 🤝 Contributing

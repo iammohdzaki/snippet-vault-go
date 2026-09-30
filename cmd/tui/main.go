@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"runtime"
 	"snippet-vault-go/internal/server"
 	"snippet-vault-go/internal/tui"
 	"time"
@@ -16,6 +17,30 @@ import (
 var Version = "dev"
 
 func main() {
+	if len(os.Args) > 1 {
+		switch os.Args[1] {
+		case "update":
+			fmt.Println("To automatically update Snippet Vault to the latest version, run:")
+			if runtime.GOOS == "windows" {
+				fmt.Println("irm https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/install.ps1 | iex")
+			} else {
+				fmt.Println("curl -sSL https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/install.sh | bash")
+			}
+			return
+		case "uninstall":
+			fmt.Println("To safely uninstall Snippet Vault, run:")
+			if runtime.GOOS == "windows" {
+				fmt.Println("irm https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/uninstall.ps1 | iex")
+			} else {
+				fmt.Println("curl -sSL https://raw.githubusercontent.com/iammohdzaki/snippet-vault-go/main/scripts/uninstall.sh | bash")
+			}
+			return
+		case "version", "-v", "--version":
+			fmt.Printf("Snippet Vault %s\n", Version)
+			return
+		}
+	}
+
 	// Build the server with io.Discard so logs don't corrupt the TUI
 	srv := server.New(":8080", io.Discard)
 
