@@ -15,7 +15,7 @@ builds:
       - amd64
       - arm64
     ldflags:
-      - -s -w
+      - -s -w -X main.Version={{.Version}}
 
   - id: vault-server
     main: ./cmd/server
@@ -30,7 +30,7 @@ builds:
       - amd64
       - arm64
     ldflags:
-      - -s -w
+      - -s -w -X main.Version={{.Version}}
 
 archives:
   - format: tar.gz

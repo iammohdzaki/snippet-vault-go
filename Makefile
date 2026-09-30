@@ -1,6 +1,7 @@
 .PHONY: build-tui build-server build-all run-tui run-server test clean
 
-LDFLAGS := -ldflags="-w -s"
+VERSION ?= $(shell git describe --tags --always --dirty || echo "dev")
+LDFLAGS := -ldflags="-w -s -X main.Version=$(VERSION)"
 
 build-tui:
 	CGO_ENABLED=0 go build $(LDFLAGS) -o bin/vault cmd/tui/main.go

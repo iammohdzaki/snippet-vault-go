@@ -6,12 +6,14 @@ import (
 	"io"
 	"net/http"
 	"os"
-	"snippet-vault-go/cmd/server"
+	"snippet-vault-go/internal/server"
 	"snippet-vault-go/internal/tui"
 	"time"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
+
+var Version = "dev"
 
 func main() {
 	// Build the server with io.Discard so logs don't corrupt the TUI
