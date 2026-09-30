@@ -1,0 +1,12 @@
+### GET Snippets
+GET http://localhost:8080/snippets
+
+###
+POST http://localhost:8080/snippets
+Content-Type: application/json
+
+{
+  "title": "Snippet 5",
+  "language": "Go",
+  "code": "fmt.Println(\"Hi\")"
+}
