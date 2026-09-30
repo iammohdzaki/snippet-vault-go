@@ -37,7 +37,7 @@
 
 **Snippet Vault** is a blazingly fast snippet manager written in Go. It runs entirely in your terminal, using a beautiful `bubbletea` powered UI. 
 
-Behind the scenes, it operates as a fully standalone application. It spins up a background HTTP server and persists your snippets seamlessly into a local, pure-Go SQLite database (`~/.snippet-vault/snippet-vault.db`).
+Behind the scenes, it operates as a fully standalone application. It spins up a background HTTP server and persists your snippets seamlessly into a local, pure-Go SQLite database (`~/.snippet-vault/vault.db`).
 
 ## ✨ Features
 
@@ -102,6 +102,14 @@ Simply run:
 snippet-vault
 ```
 *(Ensure `~/.snippet-vault/bin` or `~/.local/bin` is in your system `PATH`!)*
+
+### CLI Commands
+Snippet Vault supports a few helpful CLI subcommands out of the box:
+
+- `snippet-vault` - Launches the interactive terminal UI.
+- `snippet-vault update` - Displays the correct one-liner to update your installation to the latest version.
+- `snippet-vault uninstall` - Displays the correct one-liner to safely remove the app and database from your system.
+- `snippet-vault version` (or `-v`) - Prints the currently installed version.
 
 ### Keybindings
 
