@@ -37,11 +37,11 @@ func loggingMiddleware(logger *slog.Logger, next http.Handler) http.Handler {
 }
 
 // New builds and returns a configured HTTP server without starting it yet.
-func New(addr string, logOutput io.Writer) *http.Server {
+func New(addr string, logOutput io.Writer, dbPath string) *http.Server {
 	logger := slog.New(slog.NewTextHandler(logOutput, nil))
 
 	// Swap MemoryRepo for SQLiteRepo!
-	repo, err := storage.NewSQLiteRepo()
+	repo, err := storage.NewSQLiteRepo(dbPath)
 	if err != nil {
 		panic("failed to initialize sqlite database: " + err.Error())
 	}

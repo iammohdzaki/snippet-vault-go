@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"path/filepath"
 	"runtime"
 	"snippet-vault-go/internal/server"
 	"snippet-vault-go/internal/tui"
@@ -15,6 +16,22 @@ import (
 )
 
 var Version = "dev"
+
+func getDBPath() string {
+	// 1. Check for manual environment override
+	if env := os.Getenv("SNIPPET_VAULT_DB"); env != "" {
+		return env
+	}
+
+	// 2. If it's a dev build, use a local DB in the current directory
+	if Version == "dev" {
+		return "vault-dev.db"
+	}
+
+	// 3. Otherwise, use the production DB in the user's home directory
+	homeDir, _ := os.UserHomeDir()
+	return filepath.Join(homeDir, ".snippet-vault", "vault.db")
+}
 
 func main() {
 	if len(os.Args) > 1 {
@@ -42,7 +59,7 @@ func main() {
 	}
 
 	// Build the server with io.Discard so logs don't corrupt the TUI
-	srv := server.New(":8080", io.Discard)
+	srv := server.New(":8080", io.Discard, getDBPath())
 
 	// Start the server in a background goroutine
 	go func() {

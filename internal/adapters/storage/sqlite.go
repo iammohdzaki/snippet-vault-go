@@ -14,18 +14,11 @@ type SQLiteRepo struct {
 	db *sql.DB
 }
 
-func NewSQLiteRepo() (*SQLiteRepo, error) {
-	homeDir, err := os.UserHomeDir()
-	if err != nil {
+func NewSQLiteRepo(dbPath string) (*SQLiteRepo, error) {
+	if err := os.MkdirAll(filepath.Dir(dbPath), 0755); err != nil {
 		return nil, err
 	}
 
-	appDir := filepath.Join(homeDir, ".snippet-vault")
-	if err := os.MkdirAll(appDir, 0755); err != nil {
-		return nil, err
-	}
-
-	dbPath := filepath.Join(appDir, "vault.db")
 	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
 		return nil, err
