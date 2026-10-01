@@ -1,4 +1,4 @@
-﻿package tui
+package tui
 
 import (
 	"fmt"
@@ -331,8 +331,8 @@ func (m *SnippetsModel) updateSizes() {
 	vpWidth := (availableWidth - (availableWidth / 3)) - paneH
 
 	
-	m.list.SetSize(listWidth, targetHeight)
-	m.editor.SetSize(vpWidth, targetHeight)
+	m.list.SetSize(listWidth-2, targetHeight)
+	m.editor.SetSize(vpWidth-2, targetHeight)
 }
 
 func (m *SnippetsModel) updateViewportContent() {

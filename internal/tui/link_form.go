@@ -122,20 +122,12 @@ func (m *LinkFormModel) View() string {
 			Border(lipgloss.RoundedBorder()).
 			BorderForeground(primaryColor).
 			Padding(1, 2).
-			Width(m.width - 6).
-			Height(m.height - 4)
+			Width(m.width - 6)
 
 		title := lipgloss.NewStyle().Foreground(secondaryColor).Bold(true).Render(m.link.Title)
 		url := lipgloss.NewStyle().Foreground(activeBorder).Underline(true).Render(m.link.URL)
 		desc := lipgloss.NewStyle().Foreground(textColor).Render(m.link.Description)
 		
-		// ASCII Art / Graphic "Animation" (a stylized web icon)
-		webIcon := lipgloss.NewStyle().Foreground(primaryColor).Render(`
-    🌐
-   /  \
-  /____\
- `)
-
 		content := lipgloss.JoinVertical(lipgloss.Left,
 			title,
 			"",
@@ -146,9 +138,7 @@ func (m *LinkFormModel) View() string {
 			lipgloss.NewStyle().Foreground(subTextColor).Render("Press 'o' to open in browser!"),
 		)
 		
-		layout := lipgloss.JoinHorizontal(lipgloss.Top, webIcon, "   ", content)
-
-		return cardStyle.Render(layout)
+		return cardStyle.Render(content)
 	}
 
 	// Edit View

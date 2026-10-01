@@ -148,18 +148,13 @@ func (m *EditorModel) View() string {
 		title := lipgloss.NewStyle().Foreground(secondaryColor).Bold(true).Render(m.snippet.Title)
 		lang := lipgloss.NewStyle().Foreground(activeBorder).Render("Language: " + m.snippet.Language)
 		
-		codeIcon := lipgloss.NewStyle().Foreground(primaryColor).Render(`   { }
-  /   \
- /_____\`)
-
 		info := lipgloss.JoinVertical(lipgloss.Left,
 			title,
 			"",
 			lang,
 		)
 		
-		layout := lipgloss.JoinHorizontal(lipgloss.Top, codeIcon, "    ", info)
-		card := cardStyle.Render(layout)
+		card := cardStyle.Render(info)
 		
 		return lipgloss.JoinVertical(lipgloss.Left, card, "", m.CodeArea.View())
 	}

@@ -1,4 +1,4 @@
-﻿package tui
+package tui
 
 import (
 	"fmt"
@@ -297,8 +297,8 @@ func (m *LinksModel) updateSizes() {
 	vpWidth := (availableWidth - (availableWidth / 3)) - paneH
 
 	
-	m.list.SetSize(listWidth, targetHeight)
-	m.form.SetSize(vpWidth, targetHeight)
+	m.list.SetSize(listWidth-2, targetHeight)
+	m.form.SetSize(vpWidth-2, targetHeight)
 }
 
 func (m *LinksModel) updateViewportContent() {
