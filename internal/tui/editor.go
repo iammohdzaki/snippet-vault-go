@@ -38,9 +38,9 @@ func NewEditorModel() EditorModel {
 	ta.ShowLineNumbers = true
 	ta.CharLimit = 0
 
-	// Style the active line (purple background) and line numbers
-	ta.FocusedStyle.CursorLine = lipgloss.NewStyle().Background(primaryColor).Foreground(lipgloss.Color("#282a36"))
-	ta.FocusedStyle.CursorLineNumber = lipgloss.NewStyle().Background(primaryColor).Foreground(lipgloss.Color("#282a36")).Bold(true)
+	// Style the active line to prevent the background color spill artifact on the next line
+	ta.FocusedStyle.CursorLine = lipgloss.NewStyle()
+	ta.FocusedStyle.CursorLineNumber = lipgloss.NewStyle().Foreground(primaryColor).Bold(true)
 	ta.FocusedStyle.LineNumber = lipgloss.NewStyle().Foreground(subTextColor)
 	ta.FocusedStyle.EndOfBuffer = lipgloss.NewStyle().Foreground(subTextColor)
 	
@@ -70,7 +70,7 @@ func (m *EditorModel) SetSize(width, height int) {
 	
 	// Adjust CodeArea height: total height minus 2 rows for inputs, minus margins
 	m.CodeArea.SetWidth(width)
-	m.CodeArea.SetHeight(height - 4)
+	m.CodeArea.SetHeight(height - 11)
 	
 	m.TitleInput.Width = width - 10
 	m.LangInput.Width = width - 10
@@ -134,8 +134,40 @@ func (m *EditorModel) updateFocus() {
 }
 
 func (m *EditorModel) View() string {
+	if m.focusIndex == -1 {
+		if m.snippet == nil {
+			return lipgloss.NewStyle().Foreground(subTextColor).Padding(2).Render("Select a snippet to view details.")
+		}
+		
+		cardStyle := lipgloss.NewStyle().
+			Border(lipgloss.RoundedBorder()).
+			BorderForeground(primaryColor).
+			Padding(1, 2).
+			Width(m.width - 6)
+
+		title := lipgloss.NewStyle().Foreground(secondaryColor).Bold(true).Render(m.snippet.Title)
+		lang := lipgloss.NewStyle().Foreground(activeBorder).Render("Language: " + m.snippet.Language)
+		
+		codeIcon := lipgloss.NewStyle().Foreground(primaryColor).Render(`   { }
+  /   \
+ /_____\`)
+
+		info := lipgloss.JoinVertical(lipgloss.Left,
+			title,
+			"",
+			lang,
+		)
+		
+		layout := lipgloss.JoinHorizontal(lipgloss.Top, codeIcon, "    ", info)
+		card := cardStyle.Render(layout)
+		
+		return lipgloss.JoinVertical(lipgloss.Left, card, "", m.CodeArea.View())
+	}
+
 	return lipgloss.JoinVertical(
 		lipgloss.Left,
+		lipgloss.NewStyle().Foreground(secondaryColor).Bold(true).Render("Edit Snippet"),
+		"",
 		m.TitleInput.View(),
 		m.LangInput.View(),
 		"", // empty line spacer

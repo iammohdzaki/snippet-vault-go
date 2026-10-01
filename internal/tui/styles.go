@@ -1,4 +1,4 @@
-package tui
+﻿package tui
 
 import "github.com/charmbracelet/lipgloss"
 
@@ -40,4 +40,23 @@ var (
 
 	spinnerStyle = lipgloss.NewStyle().
 			Foreground(secondaryColor)
+
+	
+	// Tab Styles
+	activeTabStyle = lipgloss.NewStyle().
+			Border(lipgloss.RoundedBorder(), true, true, false, true).
+			BorderForeground(activeBorder).
+			Foreground(activeBorder).
+			Padding(0, 1)
+
+	inactiveTabStyle = lipgloss.NewStyle().
+			Border(lipgloss.RoundedBorder(), true, true, false, true).
+			BorderForeground(borderColor).
+			Foreground(subTextColor).
+			Padding(0, 1)
+
+	tabBarStyle = lipgloss.NewStyle().
+			Padding(0, 0).
+			Margin(0, 0)
 )
+

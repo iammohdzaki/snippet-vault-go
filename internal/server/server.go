@@ -45,8 +45,9 @@ func New(addr string, logOutput io.Writer, dbPath string) *http.Server {
 	if err != nil {
 		panic("failed to initialize sqlite database: " + err.Error())
 	}
-	service := core.NewSnippetService(repo)
-	handler := httpAdapter.NewHandler(service)
+	snippetService := core.NewSnippetService(repo)
+	linkService := core.NewLinkService(repo)
+	handler := httpAdapter.NewHandler(snippetService, linkService)
 
 	mux := http.NewServeMux()
 	handler.RegisterRoutes(mux)

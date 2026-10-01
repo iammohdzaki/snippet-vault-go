@@ -10,3 +10,10 @@ type SnippetRepository interface {
 	Update(snippet *Snippet) error
 	Delete(id string) error
 }
+
+type LinkRepository interface {
+	SaveLink(link *Link) error
+	GetAllLinks() ([]Link, error)
+	UpdateLink(link *Link) error
+	DeleteLink(id string) error
+}

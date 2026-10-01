@@ -58,3 +58,43 @@ func (s *SnippetService) DeleteSnippet(id string) error {
 	}
 	return s.repo.Delete(id)
 }
+type LinkService struct {
+	repo LinkRepository
+}
+
+func NewLinkService(repo LinkRepository) *LinkService {
+	return &LinkService{repo: repo}
+}
+
+func (s *LinkService) CreateLink(link *Link) error {
+	if strings.TrimSpace(link.Title) == "" || strings.TrimSpace(link.URL) == "" {
+		return errors.New("title and url are required")
+	}
+	now := time.Now().UTC()
+	link.CreatedAt = now
+	link.UpdatedAt = now
+	return s.repo.SaveLink(link)
+}
+
+func (s *LinkService) GetAllLinks() ([]Link, error) {
+	return s.repo.GetAllLinks()
+}
+
+func (s *LinkService) UpdateLink(id string, link *Link) error {
+	if strings.TrimSpace(id) == "" {
+		return errors.New("id is required")
+	}
+	if strings.TrimSpace(link.Title) == "" || strings.TrimSpace(link.URL) == "" {
+		return errors.New("title and url are required")
+	}
+	link.ID = id
+	link.UpdatedAt = time.Now().UTC()
+	return s.repo.UpdateLink(link)
+}
+
+func (s *LinkService) DeleteLink(id string) error {
+	if strings.TrimSpace(id) == "" {
+		return errors.New("id is required")
+	}
+	return s.repo.DeleteLink(id)
+}
